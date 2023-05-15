@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'company.dart';
+import 'drive_main.dart';
+import 'exam_guide.dart';
+
+class Bottom extends StatelessWidget {
+  const Bottom({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    RxInt currentIndex = 0.obs;
+    return Obx(()=> Scaffold(
+      body: IndexedStack(index: currentIndex.value,children: [Drive_Main(),Exam_guide(),Company()],),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex.value,
+          onTap:(index)async {currentIndex.value =index; print(currentIndex);
+
+          },selectedItemColor:Colors.orange,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home),label: '홈'),
+            BottomNavigationBarItem(icon: Icon(Icons.school),label: '시험안내'),
+            BottomNavigationBarItem(icon: Icon(Icons.add),label: '정보')]),
+    ),
+    );
+  }
+}
