@@ -1,0 +1,102 @@
+import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'package:drive2/quiz_main/chinese.dart';
+import 'package:drive2/quiz_main/english.dart';
+import 'package:drive2/quiz_main/korean.dart';
+import 'package:drive2/quiz_main/vietnamese.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+
+class Quiz extends StatelessWidget {
+  const Quiz({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      backgroundColor: Colors.white,
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Expanded(child: GestureDetector(onTap: ()async{ //한국어
+                  var rawResponse = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/quiz-sample/main/test11111.json');
+                  List response = jsonDecode(rawResponse.data); //1종보통
+                  print(response);
+
+                  var rawResponse2 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/new12.json');
+                  List response2 = jsonDecode(rawResponse2.data); //2종보통
+                  print(response2);
+
+                  var rawResponse3 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/new12.json');
+                  List response3 = jsonDecode(rawResponse3.data); //1종대형(특수)
+                  print(response3);
+
+                  var rawResponse4 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/2s.json'); //완료
+                  List response4 = jsonDecode(rawResponse4.data); //2종소형(원동기)
+                  print(response4);
+
+                  Get.to(Korean(),arguments: [response, response2,response3,response4]);},child: Image.asset('image/korean.png'))),
+                //SizedBox(width: 1,),
+
+                Expanded(child: GestureDetector(onTap: ()async{ //영어
+                  var rawResponse = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/english.json');
+                  List response = jsonDecode(rawResponse.data); //1종보통
+
+
+                  var rawResponse2 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/english.json');
+                  List response2 = jsonDecode(rawResponse2.data); //2종보통
+
+
+                  var rawResponse3 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/e2s.json');
+                  List response3 = jsonDecode(rawResponse3.data); //2종소형(원동기)
+
+
+                  Get.to(English(),arguments: [response,response2,response3]);
+                  },child: Image.asset('image/english.png'))),
+              ],
+            ),
+
+            Row(
+              children: [
+                Expanded(child: GestureDetector(onTap: ()async{  //중국어
+                  var rawResponse = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/china.json');
+                  List response = jsonDecode(rawResponse.data); //1종보통
+                  print(response);
+
+                  var rawResponse2 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/china.json');
+                  List response2 = jsonDecode(rawResponse2.data); //2종보통
+                  print(response);
+
+                  var rawResponse3 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/c2.json');
+                  List response3 = jsonDecode(rawResponse3.data); //2종소형(원동기)
+                  print(response3);
+
+                  Get.to(Chinese(),arguments: [response,response2,response3]);},child: Image.asset('image/chinese.png'))),
+                //SizedBox(width: 1,)
+
+                Expanded(child: GestureDetector(onTap: ()async{ //베트남어
+                  var rawResponse = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/v12.json');
+                  List response = jsonDecode(rawResponse.data); //1종보통
+                  print(response);
+
+                  var rawResponse2 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/v12.json');
+                  List response2 = jsonDecode(rawResponse2.data); //2종보통
+                  print(response2);
+
+                  var rawResponse3 = await Dio().get('https://raw.githubusercontent.com/dbswhdaks/drive/main/v2s.json');
+                  List response3 = jsonDecode(rawResponse3.data); //2종소형(원동기)
+                  print(response3);
+
+                  Get.to(Vietnamese(),arguments: [response,response2,response3]);},child: Image.asset('image/vietnamese.png'))),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
